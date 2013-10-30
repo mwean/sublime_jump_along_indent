@@ -1,0 +1,6 @@
+[
+  { "keys": ["alt+up"], "command": "jump_prev_indent" },
+  { "keys": ["alt+shift+up"], "command": "jump_prev_indent", "args": { "extend_selection": true} },
+  { "keys": ["alt+down"], "command": "jump_next_indent" },
+  { "keys": ["alt+shift+down"], "command": "jump_next_indent", "args": { "extend_selection": true} }
+]
