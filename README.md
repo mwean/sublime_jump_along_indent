@@ -6,15 +6,15 @@ A Sublime Text 3 plugin to move the cursor to next/previous line at the same ind
 
 There are two commands: `jump_next_indent` and `jump_prev_indent`.
 
-![Before jumping downward](/screenshots/pre_jump.png) → ![After jumping downward](/screenshots/post_jump.png)
+![Before jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump.png) → ![After jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump.png)
 
 If the cursor is to the left of an indented line, it will jump to the next line that is at that level or less.
 
-![Before jumping downward](/screenshots/pre_jump_inset.png) → ![After jumping downward](/screenshots/post_jump_inset.png)
+![Before jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump_inset.png) → ![After jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump_inset.png)
 
 There is also an option to extend the selection while jumping:
 
-![Before selecting downward](/screenshots/pre_jump.png) → ![After selecting downward](/screenshots/post_select.png)
+![Before selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump.png) → ![After selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_select.png)
 
 ## Installation ##
 
