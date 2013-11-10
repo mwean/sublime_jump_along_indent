@@ -12,6 +12,10 @@ If the cursor is to the left of an indented line, it will jump to the next line 
 
 ![Before jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump_inset.png) → ![After jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump_inset.png)
 
+If there are several lines on the same indent level, the cursor will jump to the beginning or end of the block of lines.
+
+![Before jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump_block.png) → ![After jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump_block.png)
+
 There is also an option to extend the selection while jumping:
 
 ![Before selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump.png) → ![After selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_select.png)
