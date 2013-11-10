@@ -11,6 +11,9 @@ class ViewHelper:
   def initial_column(self):
     return self.view.rowcol(self.initial_cursor_position())[1]
 
+  def initial_row(self):
+    return self.view.rowcol(self.initial_cursor_position())[0]
+
   def cursor_at_top_of_selection(self):
     return self.initial_selection().a > self.initial_selection().b
 

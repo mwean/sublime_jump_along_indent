@@ -35,7 +35,7 @@ class JumpNextIndentCommand(sublime_plugin.TextCommand):
     build_selection(self.view, new_region, target)
 
   def deselect_downward(self):
-    matched_point = self.scanner.scan_from_beginning()
+    matched_point = self.scanner.scan()
     target = self.target_point(matched_point)
     new_region = sublime.Region(self.view_helper.initial_selection().end(), target)
     build_selection(self.view, new_region, target)
@@ -69,7 +69,7 @@ class JumpPrevIndentCommand(sublime_plugin.TextCommand):
     build_selection(self.view, new_region, target)
 
   def deselect_upward(self):
-    matched_point = self.scanner.scan_from_end(direction = 'backward')
+    matched_point = self.scanner.scan('backward')
     target = self.target_point(matched_point)
     new_region = sublime.Region(self.view_helper.initial_selection().begin(), target)
     build_selection(self.view, new_region, target)
