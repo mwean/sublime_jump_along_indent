@@ -8,7 +8,7 @@ class FileScanner:
 
   def scan(self, direction = 'forward'):
     if direction == 'forward':
-      indent_match = self.search(self.search_str(), self.next_point())
+      indent_match = self.search(self.search_str(), self.next_point()) or 0
       block_match = self.find_last_line_of_block()
       return max([indent_match, block_match])
     else:

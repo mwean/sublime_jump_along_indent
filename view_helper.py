@@ -21,7 +21,7 @@ class ViewHelper:
     return self.initial_selection().b > self.initial_selection().a
 
   def target_column(self, target):
-    end_of_line = self.find_eol(target)
+    end_of_line = self.view.rowcol(self.find_eol(target))[1]
 
     if self.initial_column() > end_of_line:
       return end_of_line

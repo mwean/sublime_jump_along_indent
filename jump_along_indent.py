@@ -35,14 +35,15 @@ class JumpNextIndentCommand(sublime_plugin.TextCommand):
     build_selection(self.view, new_region, target)
 
   def deselect_downward(self):
-    matched_point = self.scanner.scan()
-    target = self.target_point(matched_point)
+    matched_row = self.scanner.scan()
+    target = self.target_point(matched_row)
     new_region = sublime.Region(self.view_helper.initial_selection().end(), target)
     build_selection(self.view, new_region, target)
 
-  def target_point(self, matched_point = None):
-    matched_point = matched_point or self.scanner.scan()
-    return self.view.text_point(matched_point, self.view_helper.target_column(matched_point))
+  def target_point(self, matched_row = None):
+    matched_row = matched_row or self.scanner.scan()
+    matched_point_bol = self.view.text_point(matched_row, 0)
+    return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
 
 class JumpPrevIndentCommand(sublime_plugin.TextCommand):
   def run(self, edit, extend_selection = False):
@@ -69,11 +70,12 @@ class JumpPrevIndentCommand(sublime_plugin.TextCommand):
     build_selection(self.view, new_region, target)
 
   def deselect_upward(self):
-    matched_point = self.scanner.scan('backward')
-    target = self.target_point(matched_point)
+    matched_row = self.scanner.scan('backward')
+    target = self.target_point(matched_row)
     new_region = sublime.Region(self.view_helper.initial_selection().begin(), target)
     build_selection(self.view, new_region, target)
 
-  def target_point(self, matched_point = None):
-    matched_point = matched_point or self.scanner.scan(direction = 'backward')
-    return self.view.text_point(matched_point, self.view_helper.target_column(matched_point))
+  def target_point(self, matched_row = None):
+    matched_row = matched_row or self.scanner.scan(direction = 'backward')
+    matched_point_bol = self.view.text_point(matched_row, 0)
+    return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
