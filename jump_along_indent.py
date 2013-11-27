@@ -26,18 +26,20 @@ class JumpNextIndentCommand(sublime_plugin.TextCommand):
 
   def jump_downward(self):
     target = self.target_point()
-    new_region = sublime.Region(target)
+    new_region = sublime.Region(target, target, self.view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def select_downward(self):
     target = self.target_point()
-    new_region = sublime.Region(self.view_helper.initial_selection().begin(), target)
+    view_helper = self.view_helper
+    new_region = sublime.Region(view_helper.initial_selection().begin(), target, view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def deselect_downward(self):
     matched_row = self.scanner.scan()
     target = self.target_point(matched_row)
-    new_region = sublime.Region(self.view_helper.initial_selection().end(), target)
+    view_helper = self.view_helper
+    new_region = sublime.Region(view_helper.initial_selection().end(), target, view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def target_point(self, matched_row = None):
@@ -61,18 +63,21 @@ class JumpPrevIndentCommand(sublime_plugin.TextCommand):
 
   def jump_upward(self):
     target = self.target_point()
-    new_region = sublime.Region(target)
+    new_region = sublime.Region(target, target, self.view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def select_upward(self):
     target = self.target_point()
-    new_region = sublime.Region(self.view_helper.initial_selection().end(), target)
+    view_helper = self.view_helper
+    new_region = sublime.Region(view_helper.initial_selection().end(), target, view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def deselect_upward(self):
     matched_row = self.scanner.scan('backward')
     target = self.target_point(matched_row)
     new_region = sublime.Region(self.view_helper.initial_selection().begin(), target)
+    view_helper = self.view_helper
+    new_region = sublime.Region(view_helper.initial_selection().begin(), target, view_helper.initial_xpos())
     build_selection(self.view, new_region, target)
 
   def target_point(self, matched_row = None):

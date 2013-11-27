@@ -2,6 +2,9 @@ class ViewHelper:
   def __init__(self, view):
     self.view = view
 
+  def initial_xpos(self):
+    return self.view.text_to_layout(self.initial_cursor_position())[0]
+
   def initial_cursor_position(self):
     return self.initial_selection().b
 
