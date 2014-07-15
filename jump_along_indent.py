@@ -1,86 +1,83 @@
-import sublime, sublime_plugin, re, sys
+import sublime
+import sublime_plugin
 from .file_scanner import FileScanner
-from .view_helper import ViewHelper
+from .view_helper import ViewHelpers
 
-def cursor_position(view):
-  return view.sel()[0]
 
-def build_selection(view, new_region, target):
-  view.sel().clear()
-  view.sel().add(new_region)
-  view.show(target)
+class JumpIndentCommand(object):
+  def run(self, edit, extend_selection=False):
+    self.clear_selection()
+    for self.view_helper in ViewHelpers(self.view):
+      self.scanner = FileScanner(self.view, self.view_helper)
 
-class JumpNextIndentCommand(sublime_plugin.TextCommand):
-  def run(self, edit, extend_selection = False):
-    view = self.view
-    self.view_helper = ViewHelper(view)
-    self.scanner = FileScanner(view)
-    cursor_at_top_of_selection = self.view_helper.cursor_at_top_of_selection()
+      if not extend_selection:
+        self.jump()
+      elif self.check_selection_pos():
+        self.deselect()
+      else:
+        self.select()
 
-    if not extend_selection:
-      self.jump_downward()
-    elif cursor_at_top_of_selection:
-      self.deselect_downward()
-    else:
-      self.select_downward()
+    self.update_selection()
 
-  def jump_downward(self):
+  def clear_selection(self):
+    self.listsel = []
+
+  def build_selection(self, new_region):
+    self.listsel.append(new_region)
+
+  def update_selection(self):
+    self.view.sel().clear()
+    for s in self.listsel:
+      self.view.sel().add(s)
+    self.view.show(s)
+
+  def jump(self):
     target = self.target_point()
     new_region = sublime.Region(target, target, self.view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+    self.build_selection(new_region)
 
-  def select_downward(self):
+  def select(self):
     target = self.target_point()
-    view_helper = self.view_helper
-    new_region = sublime.Region(view_helper.initial_selection().begin(), target, view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+    new_region = sublime.Region(self.get_select_begin_pos(), target, self.view_helper.initial_xpos())
+    self.build_selection(new_region)
 
-  def deselect_downward(self):
-    matched_row = self.scanner.scan()
+  def deselect(self):
+    matched_row = self.scanner.scan(self.direction)
     target = self.target_point(matched_row)
-    view_helper = self.view_helper
-    new_region = sublime.Region(view_helper.initial_selection().end(), target, view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+    new_region = sublime.Region(self.get_deselect_begin_pos(), target, self.view_helper.initial_xpos())
+    self.build_selection(new_region)
 
-  def target_point(self, matched_row = None):
-    matched_row = matched_row or self.scanner.scan()
+  def target_point(self, matched_row=None):
+    matched_row = matched_row or self.scanner.scan(self.direction)
     matched_point_bol = self.view.text_point(matched_row, 0)
     return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
 
-class JumpPrevIndentCommand(sublime_plugin.TextCommand):
-  def run(self, edit, extend_selection = False):
-    view = self.view
-    self.view_helper = ViewHelper(view)
-    self.scanner = FileScanner(view)
-    cursor_at_bottom_of_selection = self.view_helper.cursor_at_bottom_of_selection()
 
-    if not extend_selection:
-      self.jump_upward()
-    elif cursor_at_bottom_of_selection:
-      self.deselect_upward()
-    else:
-      self.select_upward()
+class JumpNextIndentCommand(JumpIndentCommand, sublime_plugin.TextCommand):
+  def __init__(self, *args, **kwargs):
+    super(JumpNextIndentCommand, self).__init__(*args, **kwargs)
+    self.direction = 'forward'
 
-  def jump_upward(self):
-    target = self.target_point()
-    new_region = sublime.Region(target, target, self.view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+  def check_selection_pos(self):
+    return self.view_helper.cursor_at_top_of_selection()
 
-  def select_upward(self):
-    target = self.target_point()
-    view_helper = self.view_helper
-    new_region = sublime.Region(view_helper.initial_selection().end(), target, view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+  def get_select_begin_pos(self):
+    return self.view_helper.initial_selection().begin()
 
-  def deselect_upward(self):
-    matched_row = self.scanner.scan('backward')
-    target = self.target_point(matched_row)
-    new_region = sublime.Region(self.view_helper.initial_selection().begin(), target)
-    view_helper = self.view_helper
-    new_region = sublime.Region(view_helper.initial_selection().begin(), target, view_helper.initial_xpos())
-    build_selection(self.view, new_region, target)
+  def get_deselect_begin_pos(self):
+    return self.view_helper.initial_selection().end()
 
-  def target_point(self, matched_row = None):
-    matched_row = matched_row or self.scanner.scan(direction = 'backward')
-    matched_point_bol = self.view.text_point(matched_row, 0)
-    return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
+
+class JumpPrevIndentCommand(JumpIndentCommand, sublime_plugin.TextCommand):
+  def __init__(self, *args, **kwargs):
+    super(JumpPrevIndentCommand, self).__init__(*args, **kwargs)
+    self.direction = 'backward'
+
+  def check_selection_pos(self):
+    return self.view_helper.cursor_at_bottom_of_selection()
+
+  def get_select_begin_pos(self):
+    return self.view_helper.initial_selection().end()
+
+  def get_deselect_begin_pos(self):
+    return self.view_helper.initial_selection().begin()

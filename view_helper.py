@@ -1,6 +1,16 @@
-class ViewHelper:
+class ViewHelpers:
   def __init__(self, view):
     self.view = view
+
+  def __iter__(self):
+    for sel in self.view.sel():
+      yield ViewHelper(self.view, sel)
+
+
+class ViewHelper:
+  def __init__(self, view, sel):
+    self.view = view
+    self.sel = sel
 
   def initial_xpos(self):
     return self.view.text_to_layout(self.initial_cursor_position())[0]
@@ -9,7 +19,7 @@ class ViewHelper:
     return self.initial_selection().b
 
   def initial_selection(self):
-    return self.view.sel()[0]
+    return self.sel
 
   def initial_column(self):
     return self.view.rowcol(self.initial_cursor_position())[1]
