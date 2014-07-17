@@ -2,9 +2,9 @@ import sublime, re
 from .view_helper import ViewHelper
 
 class FileScanner:
-  def __init__(self, view):
+  def __init__(self, view, viewhelper):
     self.view = view
-    self.view_helper = ViewHelper(view)
+    self.view_helper = viewhelper
 
   def scan(self, direction = 'forward'):
     if direction == 'forward':
