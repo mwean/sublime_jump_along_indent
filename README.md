@@ -1,5 +1,7 @@
 # Sublime Jump Along Indent #
 
+[![Build Status](https://travis-ci.org/mwean/sublime_jump_along_indent.svg?branch=master)](https://travis-ci.org/mwean/sublime_jump_along_indent)
+
 ## Description ##
 
 A Sublime Text 3 plugin to move the cursor to next/previous line at the same indentation level as the current line.
@@ -25,7 +27,7 @@ There is also an option to extend the selection while jumping:
 ### Using Package Control ###
   - Select "Package Control: Install Package" from the Command Palette
   - Search for "Jump Along Indent"
- 
+
 ### Using Git ###
   - Clone the repository in your Sublime Text Packages directory:
   - `git clone https://github.com/mwean/sublime_jump_along_indent.git /path/to/sublime/packages`
@@ -37,7 +39,7 @@ There is also an option to extend the selection while jumping:
 ## Usage ##
 
 The plugin comes with a set of default keybindings:
-  
+
   - `alt+up`: Jump to previous indented line
   - `alt+down`: Jump to next indented line
   - `alt+shift+up`: Jump to previous indented line and extend selection
