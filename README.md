@@ -1,6 +1,9 @@
 # Sublime Jump Along Indent #
 
-[![Build Status](https://travis-ci.org/mwean/sublime_jump_along_indent.svg?branch=master)](https://travis-ci.org/mwean/sublime_jump_along_indent)
+[![Sublime Version](http://img.shields.io/badge/sublime_text-3-orange.svg?style=flat)](http://www.sublimetext.com/3)
+[![Build Status](http://img.shields.io/travis/mwean/sublime_jump_along_indent/master.svg?style=flat)](https://travis-ci.org/mwean/sublime_jump_along_indent)
+[![Release Version](http://img.shields.io/badge/release-v0.2.1-blue.svg?style=flat)](https://github.com/mwean/sublime_jump_along_indent/releases/latest)
+[![MIT Licesne](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/mwean/sublime_jump_along_indent/blob/master/LICENSE)
 
 ## Description ##
 
