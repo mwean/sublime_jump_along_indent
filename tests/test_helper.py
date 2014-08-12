@@ -15,10 +15,11 @@ class TestHelper(TestCase):
       self.view.run_command('move_to', { 'to': 'bol', 'extend': True })
       self.view.run_command('insert', { 'characters': line + "\n" })
 
-  def check_command(self, text, start, end, extend_selection=False):
+  def check_command(self, text, start, end, extend_selection=False, indent_offset=0):
+    tab_size = self.view.settings().get("tab_size")
     self.set_text(text)
     self.view.sel().clear()
     self.view.sel().add(sublime.Region(start[0], start[1]))
-    self.view.run_command(self.command(), { 'extend_selection': extend_selection })
+    self.view.run_command(self.command(), { 'extend_selection': extend_selection, 'indent_offset': indent_offset })
 
     self.assertEqual(self.view.sel()[0], sublime.Region(end[0], end[1]))

@@ -5,7 +5,8 @@ from .view_helper import ViewHelpers
 
 
 class JumpIndentCommand(object):
-  def run(self, edit, extend_selection=False):
+  def run(self, edit, extend_selection=False, indent_offset=0):
+    self.indent_offset = indent_offset
     self.clear_selection()
     for self.view_helper in ViewHelpers(self.view):
       self.scanner = FileScanner(self.view, self.view_helper)
@@ -42,13 +43,13 @@ class JumpIndentCommand(object):
     self.build_selection(new_region)
 
   def deselect(self):
-    matched_row = self.scanner.scan(self.direction)
+    matched_row = self.scanner.scan(self.direction, self.indent_offset)
     target = self.target_point(matched_row)
     new_region = sublime.Region(self.get_deselect_begin_pos(), target, self.view_helper.initial_xpos())
     self.build_selection(new_region)
 
   def target_point(self, matched_row=None):
-    matched_row = matched_row or self.scanner.scan(self.direction)
+    matched_row = matched_row or self.scanner.scan(self.direction, self.indent_offset)
     matched_point_bol = self.view.text_point(matched_row, 0)
     return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
 
