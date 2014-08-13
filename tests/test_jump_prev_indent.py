@@ -1,4 +1,4 @@
-from test_helper import TestHelper
+from helper import TestHelper
 
 class TestJumpPrevIndent(TestHelper):
   def command(self):

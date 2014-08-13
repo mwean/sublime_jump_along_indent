@@ -1,4 +1,4 @@
-import sublime, sys, json, sublime_plugin
+import sublime
 from unittest import TestCase
 
 class TestHelper(TestCase):
