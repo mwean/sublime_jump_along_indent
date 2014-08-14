@@ -18,9 +18,17 @@ If there are several lines on the same indent level, the cursor will jump to the
 
 ![Before jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump_block.png) → ![After jumping downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump_block.png)
 
-There is also an option to extend the selection while jumping:
+### Extending selection ###
+
+With the option `extend_selection: true` you can extend the selection while jumping:
 
 ![Before selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump.png) → ![After selecting downward](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_select.png)
+
+### Jumping to a different indent level ###
+
+You can also use the `indent_offset` option to jump to a more or less-indented line. For example, with `indent_offset = -1`:
+
+![Before jumping up and out](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/pre_jump_out.png) → ![After jumping up and out](https://s3.amazonaws.com/mwean-github/sublime_jump_along_indent/post_jump_out.png)
 
 ## Installation ##
 
