@@ -4,6 +4,7 @@ from unittest import TestCase
 class TestHelper(TestCase):
   def setUp(self):
     self.view = sublime.active_window().new_file()
+    self.view.settings().set("tab_size", 2)
 
   def tearDown(self):
     if self.view:
@@ -16,7 +17,6 @@ class TestHelper(TestCase):
       self.view.run_command('insert', { 'characters': line + "\n" })
 
   def check_command(self, text, start, end, extend_selection=False, indent_offset=0):
-    tab_size = self.view.settings().get("tab_size")
     self.set_text(text)
     self.view.sel().clear()
     self.view.sel().add(sublime.Region(start[0], start[1]))
