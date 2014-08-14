@@ -1,6 +1,6 @@
 from helper import TestHelper
 
-class TestJumpOffsettedIndent(TestHelper):
+class TestJumpOffsetIndent(TestHelper):
   def command(self):
     return 'jump_prev_indent'
 
@@ -16,7 +16,7 @@ class TestJumpOffsettedIndent(TestHelper):
 
     self.check_command(lines, starting_selection, ending_selection, indent_offset = 1)
 
-  def test_positive_indent_offset(self):
+  def test_negative_indent_offset(self):
     lines = [
       '  Lorem ipsum dolor sit amet',
       '',
