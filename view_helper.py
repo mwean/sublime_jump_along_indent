@@ -33,13 +33,15 @@ class ViewHelper:
   def cursor_at_bottom_of_selection(self):
     return self.initial_selection().b > self.initial_selection().a
 
-  def target_column(self, target):
+  def target_column(self, target, indent_offset):
+    tab_size = self.view.settings().get("tab_size")
+    offset_column = self.initial_column() + tab_size * indent_offset
     end_of_line = self.view.rowcol(self.find_eol(target))[1]
 
-    if self.initial_column() > end_of_line:
+    if offset_column > end_of_line:
       return end_of_line
     else:
-      return self.initial_column()
+      return offset_column
 
   def find_eol(self, point):
     return self.view.line(point).end()

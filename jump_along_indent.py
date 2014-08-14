@@ -51,7 +51,7 @@ class JumpIndentCommand(object):
   def target_point(self, matched_row=None):
     matched_row = matched_row or self.scanner.scan(self.direction, self.indent_offset)
     matched_point_bol = self.view.text_point(matched_row, 0)
-    return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol))
+    return self.view.text_point(matched_row, self.view_helper.target_column(matched_point_bol, self.indent_offset))
 
 
 class JumpNextIndentCommand(JumpIndentCommand, sublime_plugin.TextCommand):
