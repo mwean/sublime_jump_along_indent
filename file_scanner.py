@@ -10,8 +10,13 @@ class FileScanner:
     self.indent_offset = indent_offset
     if direction == 'forward':
       indent_match = self.search(self.search_str(), self.next_point()) or 0
-      block_match = self.find_last_line_of_block()
-      return max([indent_match, block_match])
+      possible_matches = [indent_match]
+
+      if indent_offset == 0:
+        block_match = self.find_last_line_of_block()
+        possible_matches.append(block_match)
+
+      return max(possible_matches)
     else:
       if self.previous_point() < 0:
         end = 0
@@ -19,8 +24,13 @@ class FileScanner:
         end = self.previous_point()
 
       indent_match = self.reverse_search(self.search_str(), 0, end)
-      block_match = self.find_first_line_of_block(end)
-      return min([indent_match, block_match])
+      possible_matches = [indent_match]
+
+      if indent_offset == 0:
+        block_match = self.find_first_line_of_block(end)
+        possible_matches.append(block_match)
+
+      return min(possible_matches)
 
   def adapt_indent(self, indent_str):
     tab_size = self.view.settings().get("tab_size")
