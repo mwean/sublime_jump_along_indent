@@ -1,4 +1,5 @@
 from helper import TestHelper
+import sublime
 
 class TestJumpPrevIndent(TestHelper):
   def command(self):
@@ -114,3 +115,33 @@ class TestJumpPrevIndent(TestHelper):
 
     self.check_command(lines, starting_selection, ending_selection, extend_selection = True)
 
+  def test_respect_cursor_position(self):
+
+    lines = [
+      'Lorem ipsum dolor sit amet',
+      '  Lorem ipsum dolor sit amet',
+      '  Lorem ipsum dolor sit amet'
+    ]
+
+    starting_selection = [27, 27]
+    ending_selection = [0, 0]
+
+    self.check_command(lines, starting_selection, ending_selection)
+
+  def test_disrespect_cursor_position(self):
+
+    settings = sublime.load_settings("jump_along_indent.sublime-settings")
+    settings.set("respect_cursor_position", False)
+
+    lines = [
+      'Lorem ipsum dolor sit amet',
+      '  Lorem ipsum dolor sit amet',
+      '  Lorem ipsum dolor sit amet'
+    ]
+
+    starting_selection = [56, 56]
+    ending_selection = [27, 27]
+
+    self.check_command(lines, starting_selection, ending_selection)
+
+    settings.set("respect_cursor_position", True)

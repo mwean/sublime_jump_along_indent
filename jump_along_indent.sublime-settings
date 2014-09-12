@@ -1,0 +1,8 @@
+{
+	// By default, "Jump Along Indent" will take the indent before the cursor
+	// into account.
+	// If you want that the cursor position within the line doesn't play a role
+	// and instead always the full indent of the current line is relevant, set
+	// respect_cursor_position to false.
+	"respect_cursor_position" : true
+}
