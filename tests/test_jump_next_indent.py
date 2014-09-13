@@ -118,7 +118,6 @@ class TestJumpNextIndent(TestHelper):
     self.check_command(lines, starting_selection, ending_selection, extend_selection = True)
 
   def test_respect_cursor_position(self):
-
     lines = [
       '  Lorem ipsum dolor sit amet',
       'Lorem ipsum dolor sit amet',
@@ -131,7 +130,6 @@ class TestJumpNextIndent(TestHelper):
     self.check_command(lines, starting_selection, ending_selection)
 
   def test_disrespect_cursor_position(self):
-
     settings = sublime.load_settings("jump_along_indent.sublime-settings")
     settings.set("respect_cursor_position", False)
 
