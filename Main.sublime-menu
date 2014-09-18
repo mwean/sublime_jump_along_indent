@@ -46,6 +46,20 @@
                   "platform": "Linux"
                 },
                 "caption": "Key Bindings – User"
+              },
+              {
+                "command": "open_file",
+                "args": {
+                  "file": "${packages}/Jump Along Indent/jump_along_indent.sublime-settings"
+                },
+                "caption": "Settings - Default"
+              },
+              {
+                "command": "open_file",
+                "args": {
+                  "file": "${packages}/User/jump_along_indent.sublime-settings"
+                },
+                "caption": "Settings - User"
               }
             ]
           }

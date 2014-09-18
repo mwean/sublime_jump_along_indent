@@ -38,7 +38,11 @@ class FileScanner:
     return indent
 
   def search_str(self):
-    if re.match(r"^\s*$", self.str_to_left()) and re.match(r"^\s+\S+", self.str_to_right()):
+    settings = sublime.load_settings("jump_along_indent.sublime-settings")
+    respect_cursor_position = settings.get("respect_cursor_position")
+    between_leading_spaces = re.match(r"^\s*$", self.str_to_left()) and re.match(r"^\s+\S+", self.str_to_right())
+
+    if respect_cursor_position and between_leading_spaces:
       indent = self.adapt_indent(self.str_to_left())
       search_str = "^ {0," + str(indent) + "}\S+"
     else:
