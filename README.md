@@ -7,7 +7,7 @@
 
 ## Description ##
 
-A Sublime Text 3 plugin to move the cursor to next/previous line at the same indentation level as the current line.
+A Sublime Text 3/4 plugin to move the cursor to next/previous line at the same indentation level as the current line.
 
 There are two commands: `jump_next_indent` and `jump_prev_indent`.
 
